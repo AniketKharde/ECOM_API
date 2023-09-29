@@ -1,0 +1,686 @@
+{
+	"info": {
+		"_postman_id": "ea2fb4b1-8ae7-46ea-b59b-9eacc7fd278a",
+		"name": "Ecom_API_Automation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25959645",
+		"_collection_link": "https://www.postman.com/red-escape-640407/workspace/rs-workspace/collection/25959645-ea2fb4b1-8ae7-46ea-b59b-9eacc7fd278a?action=share&creator=25959645&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Validate response status code is 200 OK\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Validate response time is less than 1200ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);\r",
+							"});\r",
+							"pm.test(\"Validate Content-Type header is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Validate json response properties\",function(){\r",
+							"    pm.expect(jsonData).to.have.property(\"token\");\r",
+							"    pm.expect(jsonData).to.have.property(\"userId\");\r",
+							"    pm.expect(jsonData).to.have.property(\"message\");\r",
+							"});\r",
+							"pm.test(\"Validate response datatype\",function(){\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.token).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.userId).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"});\r",
+							"pm.test(\"Validate Json response values\",function(){\r",
+							"    pm.expect(jsonData.message).to.eql(\"Login Successfully\");\r",
+							"});\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"token\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"userId\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"token\",\r",
+							"    \"userId\",\r",
+							"    \"message\"\r",
+							"  ]\r",
+							"}\r",
+							"pm.test(\"Validate json schema\",function(){\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"// creating collection variables\r",
+							"pm.collectionVariables.set(\"token\",jsonData.token);\r",
+							"pm.collectionVariables.set(\"userId\",jsonData.userId);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userEmail\": \"admin1725@gmail.com\",\r\n    \"userPassword\": \"Admin1725#\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl_ecom}}/auth/login",
+					"host": [
+						"{{baseUrl_ecom}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatePoduct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Validate response status code is 201 Created\",function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Validate response time is less than 1200ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);\r",
+							"});\r",
+							"pm.test(\"Validate Content-Type header is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Validate json response properties\",function(){\r",
+							"    pm.expect(jsonData).to.have.property(\"productId\");\r",
+							"    pm.expect(jsonData).to.have.property(\"message\");\r",
+							"});\r",
+							"pm.test(\"Validate response datatype\",function(){\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.productId).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"});\r",
+							"pm.test(\"Validate Json response values\",function(){\r",
+							"    pm.expect(jsonData.message).to.eql(\"Product Added Successfully\");\r",
+							"});\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"productId\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"productId\",\r",
+							"    \"message\"\r",
+							"  ]\r",
+							"}\r",
+							"pm.test(\"Validate json schema\",function(){\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"// creating collection variables\r",
+							"pm.collectionVariables.set(\"productId\",jsonData.productId);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "productName",
+							"value": "Adidas Shirt",
+							"type": "text"
+						},
+						{
+							"key": "productAddedBy",
+							"value": "{{userId}}",
+							"type": "text"
+						},
+						{
+							"key": "productCategory",
+							"value": "fashion",
+							"type": "text"
+						},
+						{
+							"key": "productSubCategory",
+							"value": "shirts",
+							"type": "text"
+						},
+						{
+							"key": "productPrice",
+							"value": "999",
+							"type": "text"
+						},
+						{
+							"key": "productDescription",
+							"value": "Addias Originals",
+							"type": "text"
+						},
+						{
+							"key": "productFor",
+							"value": "men",
+							"type": "text"
+						},
+						{
+							"key": "productImage",
+							"type": "file",
+							"src": "/C:/Users/Dell/Downloads/images.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl_ecom}}/product/add-product",
+					"host": [
+						"{{baseUrl_ecom}}"
+					],
+					"path": [
+						"product",
+						"add-product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Validate response status code is 201 Created\",function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Validate response time is less than 1200ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);\r",
+							"});\r",
+							"pm.test(\"Validate Content-Type header is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Validate json response properties\",function(){\r",
+							"    pm.expect(jsonData).to.have.property(\"orders\");\r",
+							"    pm.expect(jsonData).to.have.property(\"productOrderId\");\r",
+							"    pm.expect(jsonData).to.have.property(\"message\");\r",
+							"});\r",
+							"pm.test(\"Validate response datatype\",function(){\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.orders).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData.orders[0]).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.productOrderId).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData.productOrderId[0]).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"});\r",
+							"pm.test(\"Validate Json response values\",function(){\r",
+							"    pm.expect(jsonData.productOrderId[0]).to.eql(pm.collectionVariables.get(\"productId\"));\r",
+							"    pm.expect(jsonData.message).to.eql(\"Order Placed Successfully\");\r",
+							"});\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"orders\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      ]\r",
+							"    },\r",
+							"    \"productOrderId\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      ]\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"orders\",\r",
+							"    \"productOrderId\",\r",
+							"    \"message\"\r",
+							"  ]\r",
+							"}\r",
+							"pm.test(\"Validate json schema\",function(){\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"// creating collection variables\r",
+							"pm.collectionVariables.set(\"orderID\",jsonData.orders[0]);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orders\": [\r\n        {\r\n            \"country\": \"India\",\r\n            \"productOrderedId\": \"{{productId}}\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl_ecom}}/order/create-order",
+					"host": [
+						"{{baseUrl_ecom}}"
+					],
+					"path": [
+						"order",
+						"create-order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewOrderDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Validate response status code is 200 OK\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Validate response time is less than 1200ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);\r",
+							"});\r",
+							"pm.test(\"Validate Content-Type header is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Validate json response properties\",function(){\r",
+							"    pm.expect(jsonData).to.have.property(\"data\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"_id\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"orderById\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"orderBy\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"productOrderedId\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"productName\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"country\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"productDescription\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"productImage\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"orderPrice\");\r",
+							"    pm.expect(jsonData.data).to.have.property(\"__v\");\r",
+							"    pm.expect(jsonData).to.have.property(\"message\");\r",
+							"});\r",
+							"pm.test(\"Validate response datatype\",function(){\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.data).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.data._id).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.orderById).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.orderBy).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.productOrderedId).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.productName).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.country).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.productDescription).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.productImage).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.orderPrice).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.data.__v).to.be.a(\"number\");\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"});\r",
+							"pm.test(\"Validate Json response values\",function(){\r",
+							"     pm.expect(jsonData.data._id).to.eql(pm.collectionVariables.get(\"orderID\"));\r",
+							"    pm.expect(jsonData.data.orderById).to.eql(pm.collectionVariables.get(\"userId\"));\r",
+							"    pm.expect(jsonData.message).to.eql(\"Orders fetched for customer Successfully\");\r",
+							"});\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"data\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"_id\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"orderById\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"orderBy\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"productOrderedId\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"productName\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"country\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"productDescription\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"productImage\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"orderPrice\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"__v\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"_id\",\r",
+							"        \"orderById\",\r",
+							"        \"orderBy\",\r",
+							"        \"productOrderedId\",\r",
+							"        \"productName\",\r",
+							"        \"country\",\r",
+							"        \"productDescription\",\r",
+							"        \"productImage\",\r",
+							"        \"orderPrice\",\r",
+							"        \"__v\"\r",
+							"      ]\r",
+							"    },\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"data\",\r",
+							"    \"message\"\r",
+							"  ]\r",
+							"}\r",
+							"pm.test(\"Validate json schema\",function(){\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl_ecom}}/order/get-orders-details?id={{orderID}}",
+					"host": [
+						"{{baseUrl_ecom}}"
+					],
+					"path": [
+						"order",
+						"get-orders-details"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{orderID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Validate response status code is 200 OK\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Validate response time is less than 1200ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);\r",
+							"});\r",
+							"pm.test(\"Validate Content-Type header is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Validate json response properties\",function(){\r",
+							"    pm.expect(jsonData).to.have.property(\"message\");\r",
+							"});\r",
+							"pm.test(\"Validate json response datatype\",function(){\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"});\r",
+							"pm.test(\"Validate Json response values\",function(){\r",
+							"    pm.expect(jsonData.message).to.eql(\"Orders Deleted Successfully\");\r",
+							"});\r",
+							"pm.test(\"Validate Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Orders Deleted Successfully\");\r",
+							"});\r",
+							"pm.test(\"Validate Body is correct\", function () {\r",
+							"    pm.response.to.have.body({\r",
+							"    \"message\": \"Orders Deleted Successfully\"});\r",
+							"});\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"message\"\r",
+							"  ]\r",
+							"}\r",
+							"pm.test(\"Validate json schema\",function(){\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl_ecom}}/order/delete-order/{{orderID}}",
+					"host": [
+						"{{baseUrl_ecom}}"
+					],
+					"path": [
+						"order",
+						"delete-order",
+						"{{orderID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProduct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Validate response status code is 200 OK\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Validate response time is less than 1200ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);\r",
+							"});\r",
+							"pm.test(\"Validate Content-Type header is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Validate json response properties\",function(){\r",
+							"    pm.expect(jsonData).to.have.property(\"message\");\r",
+							"});\r",
+							"pm.test(\"Validate response datatype\",function(){\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"});\r",
+							"pm.test(\"Validate Json response values\",function(){\r",
+							"    pm.expect(jsonData.message).to.eql(\"Product Deleted Successfully\");\r",
+							"});\r",
+							"pm.test(\"Validate Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Product Deleted Successfully\");\r",
+							"});\r",
+							"pm.test(\"Validate Body is correct\", function () {\r",
+							"    pm.response.to.have.body({\r",
+							"    \"message\": \"Product Deleted Successfully\"});\r",
+							"});\r",
+							"const schema = {\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"message\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"message\"\r",
+							"  ]\r",
+							"}\r",
+							"pm.test(\"Validate json schema\",function(){\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"//unset variables\r",
+							"pm.collectionVariables.clear();"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl_ecom}}/product/delete-product/{{productId}}",
+					"host": [
+						"{{baseUrl_ecom}}"
+					],
+					"path": [
+						"product",
+						"delete-product",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
